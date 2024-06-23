@@ -1,20 +1,15 @@
 from numpy import deg2rad
 from modsim import vector_hat, pol2cart, Vector
-from turnover import calc_angle
 import numpy as np
 
-def thrust_force(t, y, system):
-    angle = calc_angle(y, system)
-    max_thrust, burn_time = system.max_thrust, system.burn_time
-    theta = deg2rad(angle)
-    
-    mag = max_thrust if t < burn_time else 0
+def thrust_force(t, gnc, settings):
+    mag = settings.max_thrust if t < settings.burn_time else 0
 
-    cartCords = pol2cart(theta, 1)
-    cartVector = Vector(cartCords[0], cartCords[1])
-    direction = vector_hat(cartVector)
+    facing_cords = pol2cart(gnc.facing, 1)
+    facing_vector = Vector(facing_cords[0], facing_cords[1])
+    trust_direction = vector_hat(facing_vector)
     
-    f_thrust = mag * direction
+    f_thrust = mag * trust_direction
     return f_thrust
 
 if __name__ == "__main__":
