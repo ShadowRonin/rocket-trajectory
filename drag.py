@@ -50,7 +50,7 @@ def drag_force(V, P, system):
     height_above_earth = vector_mag(P) - (system.earth_diameter / 2)
     rho = get_rho(height_above_earth)
     
-    mag = rho * vector_mag(V)**2 * C_d * area / 2
-    direction = -vector_hat(V)
-    f_drag = mag * direction
+    drag_mag = rho * vector_mag(V)**2 * C_d * area / 2
+    direction = -1 * vector_hat(V)
+    f_drag = drag_mag * direction
     return f_drag

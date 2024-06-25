@@ -6,7 +6,7 @@ settings = Params(
     turnover_height = 2 * 1000,
     
     start_angle = np.deg2rad(-180),
-    turnover_angle = np.deg2rad(-90 - 20),
+    turnover_angle = np.deg2rad(-90 - 35),
 
     target_orbit = 2000 * 1000, # m
     final_angle = np.deg2rad(-90),
@@ -27,9 +27,12 @@ def get_gnc(t, P, system):
     # Note: all incoming data is relative to earth
     set_angle = get_set_angle(t, height_above_earth)
     angle_to_earth = vector_angle(-1 * P)
-    facing = angle_to_earth - set_angle
+
+    facing_angle = angle_to_earth - set_angle
+    facing_cords = pol2cart(facing_angle, 1)
+    facing_vector = vector_hat(Vector(facing_cords[0], facing_cords[1]))
 
     return Params(
-        facing=facing,
+        facing=facing_vector,
     )
     

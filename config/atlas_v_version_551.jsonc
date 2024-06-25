@@ -1,0 +1,86 @@
+{
+    "name": "Atlas V - 551",
+    "units": {
+        "trust": "kN",
+        "mass": "kg",
+        "time": "s"
+    },
+    "payload": 18814,
+    "stages": [
+        {
+            "name": "GEM 63",
+            "stage": 1,
+            "max_thrust": 1663,
+            "burn_time": 94,
+            "mass_units": "kg",
+            "total_mass": 49300,
+            "propellent_mass": 44200
+        },
+        {
+            "name": "GEM 63",
+            "stage": 1,
+            "max_thrust": 1663,
+            "burn_time": 94,
+            "total_mass": 49300,
+            "propellent_mass": 44200
+        },
+        {
+            "name": "GEM 63",
+            "stage": 1,
+            "max_thrust": 1663,
+            "burn_time": 94,
+            "total_mass": 49300,
+            "propellent_mass": 44200
+        },
+        {
+            "name": "GEM 63",
+            "stage": 1,
+            "max_thrust": 1663,
+            "burn_time": 94,
+            "total_mass": 49300,
+            "propellent_mass": 44200
+        },
+        {
+            "name": "GEM 63",
+            "stage": 1,
+            "max_thrust": 1663,
+            "burn_time": 94,
+            "total_mass": 49300,
+            "propellent_mass": 44200
+        },
+        {
+            "name": "Atlas CCB",
+            "stage": 1,
+            "max_thrust": 3827,
+            "burn_time": 253,
+            "total_mass": 305143,
+            "propellent_mass": 284089
+        },
+        {
+            "name": "Centaur",
+            "stage": 2,
+            "max_thrust": 99.2,
+            "burn_time": 842,
+            "total_mass": 23146,
+            "propellent_mass": 20830
+        },
+        {
+            "name": "Payload?",
+            "stage": 3,
+            "max_thrust": 40,
+            "burn_time": 300,
+            "total_mass": 2,
+            "propellent_mass": 1,
+            "start_burn_at": 8000
+        },
+        {
+            "name": "Payload?",
+            "stage": 4,
+            "max_thrust": 40,
+            "burn_time": 600,
+            "total_mass": 2,
+            "propellent_mass": 1,
+            "start_burn_at": 25000
+        }
+    ]
+}
