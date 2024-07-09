@@ -49,23 +49,19 @@ def make_system(params):
     telemetry = {
         't': [],
         'x': [],
-        'y': []
+        'y': [],
+        'ax': [],
+        'ay': [],
+        'gx': [],
+        'gy': [],
+        'trust_a': [],
+        'atx': [],
+        'aty': [],
+        'trust_f': [],
+        'ftx': [],
+        'fty': [],
+        'mass': [],
     }
-    # telemetry = {
-    #     'x': pd.Series(),
-    #     'y': pd.Series(),
-    #     'ax': pd.Series(),
-    #     'ay': pd.Series(),
-    #     'gx': pd.Series(),
-    #     'gy': pd.Series(),
-    #     'trust_a': pd.Series(),
-    #     'atx': pd.Series(),
-    #     'aty': pd.Series(),
-    #     'trust_f': pd.Series(),
-    #     'ftx': pd.Series(),
-    #     'fty': pd.Series(),
-    #     'mass': pd.Series()
-    #     }
 
     return System(params,
                   init = init,
@@ -118,17 +114,18 @@ def slope_func(t, state, system):
     system.telemetry['t'].append(t)
     system.telemetry['x'].append(x)
     system.telemetry['y'].append(y)
-    # system.telemetry['ax'][t] = calculations.acceleration.total.x
-    # system.telemetry['ay'][t] = calculations.acceleration.total.y
-    # system.telemetry['gx'][t] = calculations.acceleration.gravity.x
-    # system.telemetry['gy'][t] = calculations.acceleration.gravity.y
-    # system.telemetry['trust_a'][t] = vector_mag(calculations.acceleration.trust)
-    # system.telemetry['trust_f'][t] = vector_mag(calculations.forces.trust)
-    # system.telemetry['aty'][t] = calculations.acceleration.trust.y
-    # system.telemetry['atx'][t] = calculations.forces.trust.x
-    # system.telemetry['aty'][t] = calculations.forces.trust.y
-    # system.telemetry['mass'][t] = calculations.mass
-    
+    system.telemetry['ax'].append(A.x)
+    system.telemetry['ay'].append(A.y)
+    system.telemetry['gx'].append(calculations.acceleration.gravity.x)
+    system.telemetry['gy'].append(calculations.acceleration.gravity.y)
+    system.telemetry['trust_a'].append(vector_mag(calculations.acceleration.trust))
+    system.telemetry['atx'].append(calculations.acceleration.trust.x)
+    system.telemetry['aty'].append(calculations.acceleration.trust.y)
+    system.telemetry['trust_f'].append(vector_mag(calculations.forces.trust))
+    system.telemetry['ftx'].append(calculations.forces.trust.x)
+    system.telemetry['fty'].append(calculations.forces.trust.y)
+    system.telemetry['mass'].append(calculations.mass)
+
     return vx, vy, A.x, A.y
 
 def event_func(t, state, system):
@@ -143,23 +140,6 @@ def run_sim():
                                  events=event_func)
     print(details.message)
 
-    tel2 = {
-    'x': system.telemetry['x'],
-    'y': system.telemetry['y']
-    }
-
-    # system.telemetry['ax'] = system.telemetry['ax'].sort_index()
-    # system.telemetry['ay'] = system.telemetry['ay'].sort_index()
-    # system.telemetry['gx'] = system.telemetry['gx'].sort_index()
-    # system.telemetry['gy'] = system.telemetry['gy'].sort_index()
-    # system.telemetry['trust_a'] = system.telemetry['trust_a'].sort_index()
-    # system.telemetry['trust_f'] = system.telemetry['trust_f'].sort_index()
-    # system.telemetry['aty'] = system.telemetry['aty'].sort_index()
-    # system.telemetry['atx'] = system.telemetry['atx'].sort_index()
-    # system.telemetry['aty'] = system.telemetry['aty'].sort_index()
-    # system.telemetry['mass'] = system.telemetry['mass'].sort_index()
-    # telemetry_df = pd.DataFrame(data=system.telemetry)
-
-    telemetry_df = pd.DataFrame(data=tel2, index=system.telemetry['t']).sort_index()
+    telemetry_df = pd.DataFrame(data=system.telemetry, index=system.telemetry['t']).sort_index()
 
     return (results, telemetry_df)
