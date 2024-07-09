@@ -8,7 +8,7 @@
     "payload": 18814,
     "stages": [
         {
-            "name": "GEM 63",
+            "name": "GEM 63 - 1",
             "stage": 1,
             "max_thrust": 1663,
             "burn_time": 94,
@@ -17,7 +17,7 @@
             "propellent_mass": 44200
         },
         {
-            "name": "GEM 63",
+            "name": "GEM 63 - 2",
             "stage": 1,
             "max_thrust": 1663,
             "burn_time": 94,
@@ -25,7 +25,7 @@
             "propellent_mass": 44200
         },
         {
-            "name": "GEM 63",
+            "name": "GEM 63 - 3",
             "stage": 1,
             "max_thrust": 1663,
             "burn_time": 94,
@@ -33,7 +33,7 @@
             "propellent_mass": 44200
         },
         {
-            "name": "GEM 63",
+            "name": "GEM 63 - 4",
             "stage": 1,
             "max_thrust": 1663,
             "burn_time": 94,
@@ -41,7 +41,7 @@
             "propellent_mass": 44200
         },
         {
-            "name": "GEM 63",
+            "name": "GEM 63 - 5",
             "stage": 1,
             "max_thrust": 1663,
             "burn_time": 94,
@@ -65,22 +65,22 @@
             "propellent_mass": 20830
         },
         {
-            "name": "Payload?",
+            "name": "Payload - 1",
             "stage": 3,
             "max_thrust": 40,
             "burn_time": 300,
             "total_mass": 2,
             "propellent_mass": 1,
-            "start_burn_at": 8000
+            "start_burn_at": 2500
         },
         {
-            "name": "Payload?",
+            "name": "Payload - 2",
             "stage": 4,
             "max_thrust": 40,
-            "burn_time": 600,
+            "burn_time": 200,
             "total_mass": 2,
             "propellent_mass": 1,
-            "start_burn_at": 25000
+            "start_burn_at": 4000
         }
     ]
 }

@@ -20,30 +20,35 @@ class Vehicle:
         self.stages = list(map(createStage, config["stages"]))
         self.current_stage = 0
         self.max_stage = max(map(lambda s : s.stage, self.stages))
-        self.update_stages(0)
         self.payload_mass = config["payload"]
 
     def get_mass(self, t):
         return self.payload_mass + sum(map(lambda s : 0 if s.has_staged(t) else s.get_mass(t), self.stages))
     
     def get_trust(self, t):
-        return sum(map(lambda s : 0 if s.has_staged(t) else s.get_thrust_force(t), self.stages))
-    
-    def update_stages(self, t):
-        update_stage = True
-        for s in self.stages:
-            if s.stage <= self.current_stage:
-                if not s.has_staged(t):
-                    update_stage = False
+        total_kN = sum(map(lambda s : 0 if s.has_staged(t) else s.get_thrust_force(t), self.stages))
+        total_N = total_kN * 1000
+        return total_N
 
-        if update_stage:
-            self.current_stage += 1
+    def update_stages(self, t, gnc):
+        if gnc.has_reached_orbit:
             for s in self.stages:
-                if s.stage == self.current_stage:
-                    s.start_burn(t)
+                s.stop_burn(t)
+        else:
+            update_stage = True
+            for s in self.stages:
+                if s.stage <= self.current_stage:
+                    if not s.has_staged(t):
+                        update_stage = False
 
-    def get_tick_info(self, t):
-        self.update_stages(t)
+            if update_stage:
+                self.current_stage += 1
+                for s in self.stages:
+                    if s.stage == self.current_stage:
+                        s.start_burn(t)
+
+    def get_tick_info(self, t, gnc):
+        self.update_stages(t, gnc)
         return (self.get_mass(t), self.get_trust(t))
 
 if __name__ == "__main__":
