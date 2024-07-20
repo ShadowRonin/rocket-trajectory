@@ -6,6 +6,7 @@
         "time": "s"
     },
     "payload": 18814,
+    "number_of_stages": 2,
     "stages": [
         {
             "name": "GEM 63 - 1",
@@ -60,27 +61,10 @@
             "name": "Centaur",
             "stage": 2,
             "max_thrust": 99.2,
-            "burn_time": 842,
+            "burn_time": 0,
+            "burn_time_real": 842,
             "total_mass": 23146,
             "propellent_mass": 20830
-        },
-        {
-            "name": "Payload - 1",
-            "stage": 3,
-            "max_thrust": 40,
-            "burn_time": 300,
-            "total_mass": 2,
-            "propellent_mass": 1,
-            "start_burn_at": 2500
-        },
-        {
-            "name": "Payload - 2",
-            "stage": 4,
-            "max_thrust": 40,
-            "burn_time": 200,
-            "total_mass": 2,
-            "propellent_mass": 1,
-            "start_burn_at": 4000
         }
     ]
 }

@@ -67,7 +67,8 @@ def make_system(params):
                   init = init,
                   area = area,
                   vehicle = Vehicle("./config/atlas_v_version_551.jsonc"),
-                  telemetry=telemetry
+                  telemetry=telemetry,
+                  events=[]
                   )
 
 def calculate_all(system, t, x, y, vx, vy):
@@ -76,7 +77,7 @@ def calculate_all(system, t, x, y, vx, vy):
 
     gnc = get_gnc(t, P, V, system)
 
-    mass, thrust_mag = system.vehicle.get_tick_info(t, gnc)
+    mass, thrust_mag, vehicle_events = system.vehicle.get_tick_info(t, gnc)
 
     f_drag = drag_force(V, P, system)
     a_drag = f_drag / mass
@@ -98,7 +99,8 @@ def calculate_all(system, t, x, y, vx, vy):
         forces = Params(
             drag = f_drag,
             trust = f_thrust
-        )
+        ),
+        events = vehicle_events
     )
 
 
@@ -126,6 +128,8 @@ def slope_func(t, state, system):
     system.telemetry['fty'].append(calculations.forces.trust.y)
     system.telemetry['mass'].append(calculations.mass)
 
+    system.events.extend(calculations.events)
+
     return vx, vy, A.x, A.y
 
 def event_func(t, state, system):
@@ -142,4 +146,4 @@ def run_sim():
 
     telemetry_df = pd.DataFrame(data=system.telemetry, index=system.telemetry['t']).sort_index()
 
-    return (results, telemetry_df)
+    return (results, telemetry_df, system.events)

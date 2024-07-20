@@ -1,5 +1,6 @@
 import json
 from vehicle_stage import VehicleStage
+from event import Event
 
 def createStage(c):
     return VehicleStage(
@@ -21,6 +22,7 @@ class Vehicle:
         self.current_stage = 0
         self.max_stage = max(map(lambda s : s.stage, self.stages))
         self.payload_mass = config["payload"]
+        self.number_of_stages = config["number_of_stages"]
 
     def get_mass(self, t):
         return self.payload_mass + sum(map(lambda s : 0 if s.has_staged(t) else s.get_mass(t), self.stages))
@@ -31,10 +33,12 @@ class Vehicle:
         return total_N
 
     def update_stages(self, t, gnc):
-        if gnc.has_reached_orbit:
+        stage_events = []
+
+        if False and gnc.has_reached_orbit:
             for s in self.stages:
                 s.stop_burn(t)
-        else:
+        elif self.number_of_stages + 1 > self.current_stage:
             update_stage = True
             for s in self.stages:
                 if s.stage <= self.current_stage:
@@ -43,13 +47,16 @@ class Vehicle:
 
             if update_stage:
                 self.current_stage += 1
+                stage_events.append(Event(t, f'Stage {self.current_stage} start'))
                 for s in self.stages:
                     if s.stage == self.current_stage:
                         s.start_burn(t)
 
+        return stage_events
+
     def get_tick_info(self, t, gnc):
-        self.update_stages(t, gnc)
-        return (self.get_mass(t), self.get_trust(t))
+        staging_events = self.update_stages(t, gnc)
+        return (self.get_mass(t), self.get_trust(t), staging_events)
 
 if __name__ == "__main__":
     v = Vehicle("./config/atlas_v_version_551.jsonc")
